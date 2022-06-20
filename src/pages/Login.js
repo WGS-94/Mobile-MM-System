@@ -1,14 +1,43 @@
-import React from 'react';
-import { View, Image, TextInput, 
-         TouchableOpacity, Text,  StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Image, TextInput,TouchableOpacity, Text,  StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import api from '../services/api';
 
 import logo from '../assets/logo.png';
 
-export default function Login() {
+export default function Login({ navigation }) {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    AsyncStorage.getItem('@mm-system:userID').then(user => {
+      if(user) {
+        navigation.navigate('Dashboard');
+      }
+    })
+  }, [])
+
+  async function handleSubmit() {
+  const response = await api.post('/sessions', {
+    email,
+    password
+  })
+
+  const { _id } = response.data;
+
+  if (response && response.data && response.data.access_token) {
+    await AsyncStorage.setItem('@mm-system:userID', _id);
+  }
+
+  navigation.navigate('Dashboard');
+
+  }
+
   return (
     <View style={styles.container}>
       <Image source={logo} />
-      <Text style={styles.logo}>LOGO</Text>
       <View style={styles.form}>
         <TextInput 
           style={styles.input} 
@@ -17,13 +46,15 @@ export default function Login() {
           keyboardType='email-address'
           autoCapitalize='none'
           autoCorrect={false}
+          onChangeText={setEmail}
         />
         <TextInput 
           style={styles.input} 
           placeholder='Password' 
           placeholderTextColor='#666'
+          onChangeText={setPassword}
         />
-        <TouchableOpacity style={styles.button} >
+        <TouchableOpacity onPress={handleSubmit} style={styles.button} >
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
       </View>
