@@ -28,6 +28,22 @@ export default function MachineList() {
       'parameter': '1000 kN',
       'manufactur': 'Wilson Motores',
       'descripion': 'Texto alternativo'
+    },
+    {
+      'id': 4,
+      'thumbnail': 'https://img.directindustry.com/pt/images_di/photo-mg/115707-15139071.jpg',
+      'name': 'Engel',
+      'parameter': '1000 kN',
+      'manufactur': 'Wilson Motores',
+      'descripion': 'Texto alternativo'
+    },
+    {
+      'id': 5,
+      'thumbnail': 'https://img.directindustry.com/pt/images_di/photo-mg/115707-15139071.jpg',
+      'name': 'Engel',
+      'parameter': '1000 kN',
+      'manufactur': 'Wilson Motores',
+      'descripion': 'Texto alternativo'
     }
 ]
 
@@ -42,7 +58,12 @@ export default function MachineList() {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }) => (
           <View styel={styles.listItem}>
-            <Image styel={styles.thumbnail} source={{ uri: item.thumbnail }} />
+            <Image 
+              styel={styles.thumbnail} 
+              source={{
+                uri: item.thumbnail,
+              }}
+            />
             <Text styel={styles.textItem}>Nome: {item.name}</Text>
             <Text styel={styles.textItem}>Parâmetros: {item.parameter}</Text>
             <Text styel={styles.textItem}>Fabricante: {item.manufactur}</Text>
