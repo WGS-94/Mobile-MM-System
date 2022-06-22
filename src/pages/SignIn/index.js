@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { View, TextInput,TouchableOpacity, Text,  StyleSheet } from 'react-native';
 //import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from "../../hooks/auth";
-import Logo from '../assets/logo.svg';
 
-export default function Login({ navigation }) {
+//import LogoImg from '../images/logo.svg';
+import MMSystemLogo from '../../images/logo.svg';
+
+export default function SignIn({ navigation }) {
 
   const { signIn } = useAuth();
 
@@ -33,9 +35,15 @@ export default function Login({ navigation }) {
 
   }
 
+  const handleMessageButtonClick = () => {
+    navigation.reset({
+      routes: [{ name: 'SignUp' }]
+    });
+  }
+
   return (
     <View style={styles.container}>
-      <Logo width="100%" height="160" />
+      <MMSystemLogo width="100%" height="160" />
       <View style={styles.form}>
         <TextInput 
           style={styles.input} 
@@ -58,7 +66,7 @@ export default function Login({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.buttonGoSignUp} >
+      <TouchableOpacity onPress={handleMessageButtonClick} style={styles.buttonGoSignUp} >
         <Text style={styles.buttonTextGoSignUp}>Ainda não possui uma conta?</Text>
         <Text style={styles.buttonTextGoSignUpBold}>Cadastre-se</Text>
       </TouchableOpacity>
@@ -118,7 +126,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 50,
+    marginTop: 40,
     marginBottom: 20
   },
   buttonTextGoSignUp: {

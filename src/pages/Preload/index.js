@@ -1,10 +1,10 @@
-import React, { useEffect} from 'react';
+import React, { useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 //import api from '../../services/api';
 //import UserContext from '../../contexts/UserContext';
 
-import MMSystemSplash from '../../assets/splash.svg';
+import MMSystemSplash from '../../images/splash.svg';
 import {Container, LoadingIcon} from './style';
 
 
@@ -43,7 +43,7 @@ export default function Preload() {
 
   return (
     <Container>
-      <MMSystemSplash width="100%" height="160"/>
+      <MMSystemSplash width="100%" height="140"/>
       <LoadingIcon size="large" color="#fff"/>
     </Container>
   );

@@ -1,14 +1,21 @@
 import React from 'react';
-import { View, Image, TextInput, 
+import { View, TextInput, 
          TouchableOpacity, Text,  StyleSheet } from 'react-native';
 
-import logo from '../assets/logo.png';
+//import MMSystemLogoImg from '../../images/logo.png';
+import MMSystemLogo from '../../images/logo.svg';
 
-export default function Register() {
+export default function SignUp({ navigation }) {
+
+  const handleMessageButtonClick = () => {
+    navigation.reset({
+      routes: [{ name: 'SignIn' }]
+    });
+  }
+
   return (
     <View style={styles.container}>
-      <Image source={logo} />
-      <Text style={styles.logo}>LOGO</Text>
+      <MMSystemLogo width="100%" height="160" />
       <View style={styles.form}>
         <TextInput 
           style={styles.input} 
@@ -32,6 +39,11 @@ export default function Register() {
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
       </View>
+
+      <TouchableOpacity onPress={handleMessageButtonClick} style={styles.buttonGoSignUp} >
+        <Text style={styles.buttonTextGoSignUp}>já possui uma conta?</Text>
+        <Text style={styles.buttonTextGoSignUpBold}>Faça Login</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -83,5 +95,22 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16
 
+  },
+  buttonGoSignUp: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 40,
+    marginBottom: 20
+  },
+  buttonTextGoSignUp: {
+    fontSize: 16,
+    color: '#fff',
+  },
+  buttonTextGoSignUpBold: {
+    fontSize: 16,
+    color: '#E8643A',
+    fontWeight: 'bold',
+    marginLeft: 5
   }
 })
