@@ -1,29 +1,36 @@
-import React, { useState, useEffect } from 'react';
-import { View, Image, TextInput,TouchableOpacity, Text,  StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput,TouchableOpacity, Text,  StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-import api from '../services/api';
-
-import logo from '../assets/logo.png';
+import { useAuth } from "../../hooks/auth";
+import Logo from '../assets/logo.svg';
 
 export default function Login({ navigation }) {
+
+  const { signIn } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  useEffect(() => {
+  /*useEffect(() => {
     AsyncStorage.getItem('@mm-system:userID').then(user => {
       if(user) {
         navigation.navigate('Dashboard');
       }
     })
-  }, [])
+  }, [navigation])*/
 
   async function handleSubmit() {
-  const response = await api.post('/sessions', {
-    email,
-    password
-  })
+  const response = await signIn(
+    {
+      email,
+      password,
+    },
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
   const { _id } = response.data;
 
@@ -37,7 +44,7 @@ export default function Login({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Image source={logo} />
+      <Logo width="100%" height="160" />
       <View style={styles.form}>
         <TextInput 
           style={styles.input} 
@@ -53,11 +60,17 @@ export default function Login({ navigation }) {
           placeholder='Password' 
           placeholderTextColor='#666'
           onChangeText={setPassword}
+          password={true}
         />
         <TouchableOpacity onPress={handleSubmit} style={styles.button} >
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
       </View>
+
+      <TouchableOpacity style={styles.buttonGoSignUp} >
+        <Text style={styles.buttonTextGoSignUp}>Ainda não possui uma conta?</Text>
+        <Text style={styles.buttonTextGoSignUpBold}>Cadastre-se</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -109,5 +122,22 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16
 
+  },
+  buttonGoSignUp: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 50,
+    marginBottom: 20
+  },
+  buttonTextGoSignUp: {
+    fontSize: 16,
+    color: '#fff',
+  },
+  buttonTextGoSignUpBold: {
+    fontSize: 16,
+    color: '#E8643A',
+    fontWeight: 'bold',
+    marginLeft: 5
   }
 })

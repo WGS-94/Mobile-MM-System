@@ -2,9 +2,9 @@ import React, {useState, useEffect} from 'react';
 import { View, SafeAreaView, Text, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import api from '../services/api';
+import api from '../../services/api';
 
-import MachineList from '../components/MachineList';
+import MachineList from '../../components/MachineList';
 
 //import logo from '../assets/logo.png';
 
