@@ -1,8 +1,6 @@
 import React from 'react';
-import { View, TextInput, 
-         TouchableOpacity, Text,  StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text,  StyleSheet } from 'react-native';
 
-//import MMSystemLogoImg from '../../images/logo.png';
 import MMSystemLogo from '../../images/logo.svg';
 
 export default function SignUp({ navigation }) {

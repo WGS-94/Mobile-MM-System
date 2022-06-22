@@ -3,7 +3,6 @@ import { View, TextInput,TouchableOpacity, Text,  StyleSheet } from 'react-nativ
 //import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from "../../hooks/auth";
 
-//import LogoImg from '../images/logo.svg';
 import MMSystemLogo from '../../images/logo.svg';
 
 export default function SignIn({ navigation }) {
