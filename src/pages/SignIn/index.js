@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput,TouchableOpacity, Text,  StyleSheet } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+//import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from "../../hooks/auth";
 import Logo from '../assets/logo.svg';
 
@@ -20,23 +20,14 @@ export default function Login({ navigation }) {
   }, [navigation])*/
 
   async function handleSubmit() {
-  const response = await signIn(
-    {
-      email,
-      password,
-    },
+  
+    await signIn({email, password,},
     {
       headers: {
         "Content-Type": "application/json",
       },
     }
   );
-
-  const { _id } = response.data;
-
-  if (response && response.data && response.data.access_token) {
-    await AsyncStorage.setItem('@mm-system:userID', _id);
-  }
 
   navigation.navigate('Dashboard');
 
