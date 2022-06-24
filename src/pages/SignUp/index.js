@@ -3,7 +3,7 @@ import { View, TextInput, TouchableOpacity, Text,  StyleSheet } from 'react-nati
 
 import MMSystemLogo from '../../images/logo.svg';
 
-export default function SignUp({ navigation }) {
+export default function Register({ navigation }) {
 
   const handleMessageButtonClick = () => {
     navigation.reset({

@@ -1,36 +1,35 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, TextInput,TouchableOpacity, Text,  StyleSheet } from 'react-native';
 //import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from "../../hooks/auth";
 
 import MMSystemLogo from '../../images/logo.svg';
 
-export default function SignIn({ navigation }) {
+export default function Login({ navigation }) {
 
-  const { signIn } = useAuth();
+  const {signIn} = useAuth();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  async function handleSubmit({ email, password }) {
 
-  /*useEffect(() => {
-    AsyncStorage.getItem('@mm-system:userID').then(user => {
-      if(user) {
-        navigation.navigate('Dashboard');
-      }
-    })
-  }, [navigation])*/
+    try {
 
-  async function handleSubmit() {
-  
-    await signIn({email, password,},
-    {
-      headers: {
-        "Content-Type": "application/json",
-      },
+      const response = await signIn({email, password},
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      navigation.reset({
+        routes: [{ name: 'MainTab' }]
+      });
+
+      console.log(response)
+
+    } catch (error) {
+      console.log(error)
     }
-  );
-
-  navigation.navigate('Dashboard');
 
   }
 
@@ -51,14 +50,12 @@ export default function SignIn({ navigation }) {
           keyboardType='email-address'
           autoCapitalize='none'
           autoCorrect={false}
-          onChangeText={setEmail}
         />
         <TextInput 
           style={styles.input} 
           placeholder='Password' 
           placeholderTextColor='#666'
-          onChangeText={setPassword}
-          password={true}
+          secureTextEntry={true}
         />
         <TouchableOpacity onPress={handleSubmit} style={styles.button} >
           <Text style={styles.buttonText}>Entrar</Text>
